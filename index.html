@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>Road Racer</title>
+</head>
+<body>
+    <h1 class="game-title">ROAD RACER</h1>
+    <!-- <audio src="./assets/sounds/home-music.mp3" type="audio/mp3" controls></audio> -->
+    <div class="canvas">
+        <canvas id="infoCanvas1" width="400" height="600"></canvas>
+        <canvas id="myCanvas" width="400" height="600"></canvas>
+        <canvas id="infoCanvas2" width="400" height="600"></canvas>
+    </div>
+    <div class="audio">
+        <audio id="homeSound" loop>
+            <source src="./assets/sounds/home-music.mp3" type="audio/mp3">
+        </audio>
+        <audio id="racingCarSound" loop>
+            <source src="./assets/sounds/racing-car-sound.mp3" type="audio/mp3">
+        </audio>
+        <audio id="bulletSound">
+            <source src="./assets/sounds/bullet-sound.wav" type="audio/wav">
+        </audio>
+    </div>
+
+    <!-- script -->
+    <script src="index.js"></script>
+    <script src="info1.js"></script>
+</body>
+</html>
