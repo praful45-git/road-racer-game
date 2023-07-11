@@ -1,3 +1,5 @@
+import { moveSelectCarLeft, moveSelectCarRight } from "./selectCar.js";
+
 const canvas = document.getElementById("myCanvas");
 const context = canvas.getContext("2d");
 
@@ -5,6 +7,25 @@ const context = canvas.getContext("2d");
 const homeMusic = document.getElementById("homeSound")
 const racingCarSound = document.getElementById("racingCarSound")
 const bulletSound = document.getElementById("bulletSound")
+
+//select cars
+//drawing car
+const greenCarImg = new Image();
+greenCarImg.src = "./assets/bright-green-racing-car.png";
+
+const redCarImg = new Image();
+redCarImg.src = "./assets/red-racing-car.png";
+
+const blueCarImg = new Image();
+blueCarImg.src = "./assets/blue-racing-car.png";
+
+const yellowCarImg = new Image();
+yellowCarImg.src = "./assets/yellow-racing-car.png";
+let isCarImageLoaded = false;
+
+greenCarImg.onload = function () {
+    isCarImageLoaded = true;
+};
 
 const enemy = [
     { width: 25, height: 35, health: 1, level: 1, type: "enemy", damage: 1, point: 2 },
@@ -29,6 +50,13 @@ const street = {
     height: 600
 
 }
+
+const selectCars = [
+    {carImg: greenCarImg},
+    {carImg: redCarImg},
+    {carImg: yellowCarImg},
+    {carImg: blueCarImg}
+]
 
 const car = {
     initX: canvas.width / 2 - 20,
@@ -134,8 +162,23 @@ document.addEventListener("keydown", (e) => {
         if (e.code == "Space" && canFireBullet) {
             setBullet();
         }
+    }else{
+        let totalCars = selectCars.length;
+        if (e.code == "ArrowLeft") {
+            moveSelectCarLeft(selectCars,1,totalCars);
+        }
+        if (e.code == "ArrowRight") {
+            moveSelectCarRight(selectCars,1,totalCars);
+        }
     }
 })
+
+//select Cars
+function selectCar(){
+    context.drawImage(selectCars[0].carImg, car.initX-100,car.initY+50, car.width,car.height);
+    context.drawImage(selectCars[1].carImg, car.initX,car.initY, car.width,car.height);
+    context.drawImage(selectCars[2].carImg, car.initX+100,car.initY+50, car.width,car.height);
+}
 
 //Game Animation
 function gameAnimation() {
@@ -148,6 +191,7 @@ function gameAnimation() {
         playMusic();
         if (showStart) {
             startPrompt();
+            selectCar();
         }
         drawCar();
         gameLoop();
@@ -181,19 +225,12 @@ function setGlow() {
     context.shadowBlur = 10;
 }
 
-//drawing car
-const carImg = new Image();
-carImg.src = "./assets/bright-green-racing-car.png";
-let isCarImageLoaded = false;
 
-carImg.onload = function () {
-    isCarImageLoaded = true;
-};
 
 function drawCar() {
     if (isCarImageLoaded) {
         if (isBlink && recentCollide) {
-            context.drawImage(carImg, car.x, car.y, car.width, car.height);
+            context.drawImage(selectCars[1].carImg, car.x, car.y, car.width, car.height);
             setTimeout(() => {
                 isBlink = false;
             }, 100);
@@ -202,7 +239,7 @@ function drawCar() {
             }, 300);
         }
         if (!recentCollide) {
-            context.drawImage(carImg, car.x, car.y, car.width, car.height);
+            context.drawImage(selectCars[1].carImg, car.x, car.y, car.width, car.height);
         }
     }
 }
@@ -738,6 +775,9 @@ function startPrompt() {
     context.fillStyle = "white"
     context.font = "20px GameFont"
     context.fillText(`High Score:${currhighScore}`, 64, 350);
+    context.fillStyle = "yellow"
+    context.font = "14px GameFont"
+    context.fillText(`<- Select Your Car ->`, 55, 485);
 }
 
 //audio

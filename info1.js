@@ -42,6 +42,5 @@ function drawDev(){
     devCtx.fillRect (25,25, 350,550);
     devCtx.fillStyle = "#0f0";
     devCtx.font = "14px gameFont"
-    devCtx.fillText(`DEVELOPED BY:`,115,275)
-    devCtx.fillText(`PRAFUL SHRESTHA`,100,300)
+    devCtx.fillText(`HAPPY GAMING !!!`,90,275)
 }
