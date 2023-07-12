@@ -1,10 +1,5 @@
 
 export function moveSelectCarLeft(cars,d,n){
-    console.log("initial index")
-    for(let i=0;i<n;i++){
-        console.log(cars[i]);
-    }
-
     let temp = new Array();
     let k = 0;
     //shifting car one step left excluding the first one
@@ -21,20 +16,9 @@ export function moveSelectCarLeft(cars,d,n){
     for(let i=0;i<n;i++){
         cars[i] = temp[i];
     }
-
-    //console new array cars\
-    console.log("final index")
-    for(let i=0;i<n;i++){
-        console.log(cars[i]);
-    }
 }
 
 export function moveSelectCarRight(cars,d,n){
-    console.log("initial index")
-    for(let i=0;i<n;i++){
-        console.log(cars[i]);
-    }
-
     let temp = new Array();
     let k = 0;
     //shifting car one step right excluding the last one
@@ -52,12 +36,6 @@ export function moveSelectCarRight(cars,d,n){
     //copying tempcars to selectcars array
     for(let i=0;i<n;i++){
         cars[i] = temp[i];
-    }
-
-    //console new array cars\
-    console.log("final index")
-    for(let i=0;i<n;i++){
-        console.log(cars[i]);
     }
 }
 

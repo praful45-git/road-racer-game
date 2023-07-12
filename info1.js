@@ -32,9 +32,12 @@ function drawInfo(){
     infoCtx.fillText(`* Aim For HighScore`,40,295+60)
     infoCtx.fillStyle = "#fff";
     infoCtx.fillText(`  Best of Luck!!!`,40,400)
-    infoCtx.fillStyle = "#00FF00";
-    infoCtx.fillText(`  GAME OVER ???`,40,450)
-    infoCtx.fillText(`  Press ENTER`,95,475)
+    infoCtx.fillStyle = "yellow";
+    infoCtx.font = "20px gameFont"
+    infoCtx.fillText(`  GAME OVER ???`,30,470)
+    infoCtx.fillText(`  Press ENTER`,30,495)
+    infoCtx.font = "14px gameFont"
+    infoCtx.fillText(`* M - Mute/Unmute Music`,42,550)
 }
 
 function drawDev(){

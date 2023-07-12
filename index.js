@@ -7,6 +7,9 @@ const context = canvas.getContext("2d");
 const homeMusic = document.getElementById("homeSound")
 const racingCarSound = document.getElementById("racingCarSound")
 const bulletSound = document.getElementById("bulletSound")
+const lifeSound = document.getElementById("lifeSound")
+const bulletCollectSound = document.getElementById("bulletCollectSound")
+const carCrashSound = document.getElementById("carCrashSound")
 
 //select cars
 //drawing car
@@ -53,9 +56,9 @@ const street = {
 
 const selectCars = [
     {carImg: greenCarImg},
-    {carImg: redCarImg},
+    {carImg: blueCarImg},
     {carImg: yellowCarImg},
-    {carImg: blueCarImg}
+    {carImg: redCarImg},
 ]
 
 const car = {
@@ -110,6 +113,7 @@ let isBlink = true;
 let showStart = true;
 let recentCollide = false;
 let canPlayHomeMusic = true;
+let pauseMusic = false;
 
 //highscsore
 if (localStorage.getItem("highScore") === null) {
@@ -169,6 +173,12 @@ document.addEventListener("keydown", (e) => {
         }
         if (e.code == "ArrowRight") {
             moveSelectCarRight(selectCars,1,totalCars);
+        }
+        if(e.code == "KeyM"){
+            console.log("m")
+            pauseMusic = !pauseMusic;
+            homeMusic.pause();
+            homeMusic.currentTime = 0;
         }
     }
 })
@@ -474,10 +484,12 @@ function checkCollision() {
 
         ) {
             if (block.type === "boost" && car.healthStat < 9) {
+                lifeSound.play();
                 car.healthStat++;
                 blocks.splice(i, 1);
             }
             if (block.type === "enemy") {
+                carCrashSound.play();
                 car.healthStat -= block.damage;
                 blocks.splice(i, 1);
                 car.x = car.initX;
@@ -493,6 +505,7 @@ function checkCollision() {
                 break;
             }
             if (block.type === "ammo") {
+                bulletCollectSound.play();
                 car.ammo += 25;
                 blocks.splice(i, 1);
             }
@@ -777,14 +790,14 @@ function startPrompt() {
     context.fillText(`High Score:${currhighScore}`, 64, 350);
     context.fillStyle = "yellow"
     context.font = "14px GameFont"
-    context.fillText(`<- Select Your Car ->`, 55, 485);
+    context.fillText(`<- Select Your Car ->`, 55, 150);
 }
 
 //audio
 function playMusic(){
-    if(canPlayHomeMusic){
+    if(canPlayHomeMusic && !pauseMusic){
         homeMusic.play()
-    }else{
+    }else if(!canPlayHomeMusic){
         homeMusic.pause();
         homeMusic.currentTime = 0;
         racingCarSound.play();
